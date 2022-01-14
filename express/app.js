@@ -1,31 +1,9 @@
 import express from 'express';
 const app = express();
 
-app.all('/api', (req, res, next) => {
-    console.log('all');
-    next();
-})
-app.get('/sky',
-    (req, res, next) => {
-        console.log('first');
-        // next(new Error('Error'));
-        next('use')
-    },
-    (req, res, next) => {
-        console.log('first2');
-        next();
-    },
-    (req, res, next) => {
-        console.log('first3');
-        res.send('end of middleware')
-    },
-)
+app.use(express.json());
 
-app.use((req, res, next) => {
-    res.status(404).send('Note available!');
-})
-app.use((error, req, res, next) => {
-    console.error(error);
-    res.status(500).send('Sorry try later!');
+app.post('/', (req, res, next) => {
+    console.log(req.body); //undefined; express에서 body의 내용을 읽을려면 지원해주는 미들웨어 사용해야함.
 })
 app.listen(7777);
