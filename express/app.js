@@ -3,7 +3,10 @@ import homeRouter from './router/homeRouter.js';
 import userRouter from './router/userRouter.js';
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); //REST API - Body parsing
+app.use(express.urlencoded({ extended: false })); //HTML Form parsing
+app.use(express.static('public')); //
+// app.get('/index.html',(req,res,next)=>{})
 
 app.route('/posts')
     .get((req, res, next) => {
